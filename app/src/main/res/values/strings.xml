@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Notepadv3</string>
+    <string name="no_notes">No Notes Yet</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_insert">Add Note</string>
+    <string name="menu_insert_cat">Add Category</string>
+    <string name="menu_delete">Delete Note</string>
+    <string name="menu_edit">Edit Note</string>
+    <string name="menu_delete_cat">Delete Category</string>
+    <string name="menu_edit_cat">Edit Category</string>
+    <string name="menu_show_cat">Show Categories</string>
+    <string name="menu_show_not">Show Notes By Title</string>
+    <string name="menu_show_not_by_cat">Show Notes By Category</string>
+    <string name="sort_notes">Show notes of this category</string>
+    <string name="test">System Test</string>
+    <string name="overload_test">Overload Test</string>
+    <string name="volume_test">Volume Test</string>
+    <string name="menu_send">Send Note</string>
+    <string name="title">Title</string>
+    <string name="ID">ID</string>
+    <string name="body">Body</string>
+    <string name="confirm">Confirm</string>
+    <string name="edit_note">Edit Note</string>
+    <string name="edit_category">Edit Category</string>
+    <string name="send_note">Send Note</string>
+    <string name="title_activity_note_edit">EditNote</string>
+    <string name="title_activity_category_edit">EditCategory</string>
+    <string name="category">Category</string>
+    <string name="title_activity_test">Test</string>
+</resources>
