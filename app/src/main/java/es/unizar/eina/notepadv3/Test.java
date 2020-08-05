@@ -41,19 +41,16 @@ public class Test {
         int i = 0;
         try{
             mDbHelper.resetNotes();
-            for(i = 0; i < 100000; i++){
-                long n = mDbHelper.createNote("Título", "Body", (long)i, "none");
+            for(i = 0; i <= 200000; i++){
+                long n = mDbHelper.createNote("Título"+i, "Body", (long)i, "none");
 
-                if(i%1000 == 0){
+                if(i == 1000 || i == 50000 || i == 99999 || i == 100000 || i == 200000){
                     Cursor c = mDbHelper.fetchNote(n);
-                    if(c == null){
-                        System.out.println("Notas insertadas: " +i);
-                        break;
+                    if(c != null){
+                        Log.d("Tag", i+ " notas insertadas correctamente");
                     }
-                    Log.d("Tag", i+ " notas insertadas correctamente");
                 }
             }
-            Log.d("Tag", "Exito con i = " +i);
             mDbHelper.resetNotes();
 
         }catch(Exception e){
@@ -66,14 +63,12 @@ public class Test {
         try{
             mDbHelperCat.resetCategories();
             for(i = 0; i < 100000; i++){
-                long n = mDbHelperCat.createCategory("nombreCat", (long)i);
-                if(i%1000 == 0){
+                long n = mDbHelperCat.createCategory("nombreCat"+1, (long)i);
+                if(i == 1000 || i == 50000 || i == 99999 || i == 100000 || i == 200000){
                     Cursor c = mDbHelperCat.fetchCategory(n);
-                    if(c == null){
-                        System.out.println("Categorías insertadas: " +i);
-                        break;
+                    if(c != null){
+                        Log.d("Tag", i+ " categorías insertadas correctamente");
                     }
-                    Log.d("Tag", i+ " categorías insertadas correctamente");
                 }
             }
             Log.d("Tag", "Exito con i = " +i);
@@ -275,9 +270,21 @@ public class Test {
         try {
             mDbHelper.resetNotes();
             long n = mDbHelper.createNote("Nota","body", (long) 0,"none");
-            Cursor c = mDbHelper.fetchNote(n);
-            mDbHelper.deleteNote(n);
-            c = mDbHelper.fetchNote(n);
+            if(mDbHelper.deleteNote(n)){
+                Log.d("Tag", "Nota borrada correctamente con id " +n);
+            }else{
+                Log.d("Tag", "Nota no borrada con id " +n);
+            }
+            if(mDbHelper.deleteNote(0)){
+                Log.d("Tag", "Nota borrada correctamente con id 0");
+            }else{
+                Log.d("Tag", "Nota no borrada con id 0");
+            }
+            if(mDbHelper.deleteNote(-1)){
+                Log.d("Tag", "Nota borrada correctamente con id -1");
+            }else{
+                Log.d("Tag", "Nota no borrada con id -1");
+            }
             mDbHelper.resetNotes();
         }catch (Exception e){
             Log.d("Tag", "Error en la prueba de eliminación de notas");
@@ -286,30 +293,110 @@ public class Test {
     }
 
     public void pruebaBorrarCategoria(){
-
+        try {
+            mDbHelperCat.resetCategories();
+            long n = mDbHelperCat.createCategory("Cat",(long) 0);
+            if(mDbHelperCat.deleteCategory(n)){
+                Log.d("Tag", "Categoría borrada correctamente con id " +n);
+            }else{
+                Log.d("Tag", "Categoría no borrada con id " +n);
+            }
+            if(mDbHelperCat.deleteCategory((long)0)){
+                Log.d("Tag", "Categoría borrada correctamente con id 0");
+            }else{
+                Log.d("Tag", "Categoría no borrada con id 0");
+            }
+            if(mDbHelperCat.deleteCategory((long)-1)){
+                Log.d("Tag", "Categoría borrada correctamente con id -1");
+            }else{
+                Log.d("Tag", "Categoría no borrada con id -1");
+            }
+            mDbHelperCat.resetCategories();
+        }catch (Exception e){
+            Log.d("Tag", "Error en la prueba de eliminación de categorías");
+        }
     }
 
     public void pruebaEditarNota(){
+        try{
+            mDbHelper.resetNotes();
+            long n = mDbHelper.createNote("Nota","body",(long) 1,"none");
+            if(mDbHelper.updateNote((long) 1,"Notaa","bodyy","none")){
+                Log.d("Tag", "Nota editada correctamente con id "+n);
+            }else{
+                Log.d("Tag", "Nota no editada con id "+n);
+            }
+            if(mDbHelper.updateNote((long) 0,"Notaa","bodyy","none")){
+                Log.d("Tag", "Nota editada correctamente con id 0");
+            }else{
+                Log.d("Tag", "Nota no editada con id 0");
+            }
+            if(mDbHelper.updateNote((long) -1,"Notaa","bodyy","none")){
+                Log.d("Tag", "Nota editada correctamente con id -1");
+            }else{
+                Log.d("Tag", "Nota no editada con id -1");
+            }
+            if(mDbHelper.updateNote((long) n,null,"bodyy","none")){
+                Log.d("Tag", "Nota editada correctamente con id "+n + "título nulo");
+            }else{
+                Log.d("Tag", "Nota no editada con id "+n + "título nulo");
+            }
+            if(mDbHelper.updateNote((long) n,"","bodyy","none")){
+                Log.d("Tag", "Nota editada correctamente con id "+n + "título vacío");
+            }else{
+                Log.d("Tag", "Nota no editada con id "+n + "título vacío");
+            }
+            if(mDbHelper.updateNote((long) n,"Notaa",null,"none")){
+                Log.d("Tag", "Nota editada correctamente con id "+n + "body nulo");
+            }else{
+                Log.d("Tag", "Nota no editada con id "+n + "body nulo");
+            }
+            if(mDbHelper.updateNote((long) n,"Notaa","bodyy",null)){
+                Log.d("Tag", "Nota editada correctamente con id "+n + "categoría nula");
+            }else{
+                Log.d("Tag", "Nota no editada con id "+n + "categoría nula");
+            }
+            mDbHelper.resetNotes();
 
+        }catch(Exception e){
+            Log.d("Tag", "Error en la prueba de edición de notas");
+        }
     }
 
     public void pruebaEditarCategoria(){
-
-    }
-
-    public void pruebaListarNotasPorCategorias() throws InterruptedException{
         try{
-            // Crea 2 categorías
-            mDbHelperCat.createCategory("Categoría de prueba 1", (long)15);
-            mDbHelperCat.createCategory("Categoría de prueba 2", (long)16);
-            // Crea notas intercaladas de categorías distintas
-            for(int i = 0; i<20; i++){
-                mDbHelper.createNote("notaCategoría1","cuerpo",(long) i,"15");
-                mDbHelper.createNote("notaCategoría2","cuerpo",(long) i,"16");
+            mDbHelperCat.resetCategories();
+            long n = mDbHelperCat.createCategory("Categoría",(long) 1);
+            if(mDbHelperCat.updateCategory((long) 1,"Categoríaa")){
+                Log.d("Tag", "Categoría editada correctamente con id "+n);
+            }else{
+                Log.d("Tag", "Categoría no editada con id "+n);
             }
+            if(mDbHelperCat.updateCategory((long) 0,"Categoríaa")){
+                Log.d("Tag", "Categoría editada correctamente con id 0");
+            }else{
+                Log.d("Tag", "Categoría no editada con id 0");
+            }
+            if(mDbHelperCat.updateCategory((long) -1,"Categoríaa")){
+                Log.d("Tag", "Categoría editada correctamente con id -1");
+            }else{
+                Log.d("Tag", "Categoría no editada con id -1");
+            }
+            if(mDbHelperCat.updateCategory((long) n,null)){
+                Log.d("Tag", "Categoría editada correctamente con id "+n + "título nulo");
+            }else{
+                Log.d("Tag", "Categoría no editada con id "+n + "título nulo");
+            }
+            if(mDbHelperCat.updateCategory((long) n,"")){
+                Log.d("Tag", "Categoría editada correctamente con id "+n + "título vacío");
+            }else{
+                Log.d("Tag", "Categoría no editada con id "+n + "título vacío");
+            }
+            mDbHelperCat.resetCategories();
 
         }catch(Exception e){
-            Log.d("Tag", "Error al listar las notas por categoría.");
+            Log.d("Tag", "Error en la prueba de edición de categorías");
         }
     }
+
 }
