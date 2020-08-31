@@ -58,8 +58,8 @@ public class Notepadv3 extends AppCompatActivity {
         mDbHelper.open();
         mDbHelperCat = new CategoriesDbAdapter(this);
         mDbHelperCat.open();
-        mDbHelperCat.resetCategories();
-        mDbHelper.resetNotes();
+        mDbHelperCat.resetCategories(); // Para refrescar la base de datos al iniciar la app
+        mDbHelper.resetNotes();  // en caso de ser necesario.
         mList = (ListView)findViewById(R.id.list);
         fillData();
         mRowId = (savedInstanceState == null) ? null :

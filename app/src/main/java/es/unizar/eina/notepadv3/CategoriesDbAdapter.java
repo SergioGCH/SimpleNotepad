@@ -94,7 +94,7 @@ public class CategoriesDbAdapter {
         initialValues.put(KEY_TITLE, title);
         initialValues.put(KEY_ROWID, id);
 
-        return mDb.insert(DATABASE_TABLE, null, initialValues);
+        return mDb.insertOrThrow(DATABASE_TABLE, null, initialValues);
     }
 
     /**
@@ -172,7 +172,6 @@ public class CategoriesDbAdapter {
         ContentValues args = new ContentValues();
         args.put(KEY_TITLE, title);
         args.put(KEY_ROWID, rowId);
-        Log.d("myTag", "Titulo : " +title);
         return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }
 

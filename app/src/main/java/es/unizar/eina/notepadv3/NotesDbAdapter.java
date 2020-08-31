@@ -44,6 +44,7 @@ public class NotesDbAdapter {
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
+
         DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
@@ -109,7 +110,7 @@ public class NotesDbAdapter {
         initialValues.put(KEY_BODY, body);
         initialValues.put(KEY_CATEGORY, category);
 
-        return mDb.insert(DATABASE_TABLE, null, initialValues);
+        return mDb.insertOrThrow(DATABASE_TABLE, null, initialValues);
     }
 
     /**
