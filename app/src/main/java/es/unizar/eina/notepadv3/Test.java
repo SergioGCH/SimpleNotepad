@@ -43,10 +43,10 @@ public class Test {
         int i = 0;
         try{
             mDbHelper.resetNotes();
-            for(i = 0; i <= 200000; i++){
+            for(i = 0; i <= 50000; i++){
                 long n = mDbHelper.createNote("Título"+i, "Body", (long)i, "none");
 
-                if(i == 1000 || i == 50000 || i == 99999 || i == 100000 || i == 200000){
+                if(i == 100 || i == 500 || i == 999 || i == 1000 || i == 50000){
                     Cursor c = mDbHelper.fetchNote(n);
                     if(c != null){
                         Log.d("Tag", i+ " notas insertadas correctamente");
@@ -64,9 +64,9 @@ public class Test {
         int i = 0;
         try{
             mDbHelperCat.resetCategories();
-            for(i = 0; i < 100000; i++){
-                long n = mDbHelperCat.createCategory("nombreCat"+1, (long)i);
-                if(i == 1000 || i == 50000 || i == 99999 || i == 100000 || i == 200000){
+            for(i = 0; i <= 50000; i++){
+                long n = mDbHelperCat.createCategory("nombreCat"+i, (long)i);
+                if(i == 100 || i == 500 || i == 999 || i == 1000 || i == 50000){
                     Cursor c = mDbHelperCat.fetchCategory(n);
                     if(c != null){
                         Log.d("Tag", i+ " categorías insertadas correctamente");
@@ -263,7 +263,8 @@ public class Test {
     public void pruebaBorrarNota(){
         try {
             mDbHelper.resetNotes();
-            long n = mDbHelper.createNote("Nota","body", (long) 0,"none");
+            long n = mDbHelper.createNote("Nota","body", (long) 1,"none");
+            long n0 = mDbHelper.createNote("Nota","body", (long) 0,"none");
             if(mDbHelper.deleteNote(n)){
                 Log.d("Tag", "Nota borrada correctamente con id " +n);
             }else{
@@ -289,7 +290,8 @@ public class Test {
     public void pruebaBorrarCategoria(){
         try {
             mDbHelperCat.resetCategories();
-            long n = mDbHelperCat.createCategory("Cat",(long) 0);
+            long n = mDbHelperCat.createCategory("Cat",(long) 1);
+            long n0 = mDbHelperCat.createCategory("Cat0",(long) 0);
             if(mDbHelperCat.deleteCategory(n)){
                 Log.d("Tag", "Categoría borrada correctamente con id " +n);
             }else{
